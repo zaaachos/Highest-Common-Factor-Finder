@@ -1,6 +1,6 @@
 	.data
-		diabasea: .asciiz "Give me the first Integer: "
-		diabaseb: .asciiz "Give me the second Integer: "
+		readA: .asciiz "Give me the first Integer: "
+		readB: .asciiz "Give me the second Integer: "
 		MKD: .asciiz "Who you think is the highest common factor of these 2 Integers?\n> "
 		correct: .asciiz "Congratulations"
 		false: .asciiz "False. Try Again!"
@@ -8,7 +8,7 @@
 	.text
 	.globl main
 main:
-	la $a0,diabasea
+	la $a0,readA
 	li $v0,4
 	syscall
 
@@ -17,7 +17,7 @@ main:
 
 	move $s0,$v0
 
-	la $a0,diabaseb
+	la $a0,readB
 	li $v0,4
 	syscall
 
