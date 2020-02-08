@@ -1,14 +1,15 @@
 	.data
-		readA: .asciiz "Give me the first Integer: "
-		readB: .asciiz "Give me the second Integer: "
+		diabasea: .asciiz "Give me the first Integer: "
+		diabaseb: .asciiz "Give me the second Integer: "
 		MKD: .asciiz "Who you think is the highest common factor of these 2 Integers?\n> "
 		correct: .asciiz "Congratulations"
 		false: .asciiz "False. Try Again!"
+		answer: .asciiz "\nThe HCF is: "
 
 	.text
 	.globl main
 main:
-	la $a0,readA
+	la $a0,diabasea
 	li $v0,4
 	syscall
 
@@ -17,7 +18,7 @@ main:
 
 	move $s0,$v0
 
-	la $a0,readB
+	la $a0,diabaseb
 	li $v0,4
 	syscall
 
@@ -36,6 +37,7 @@ main:
 	syscall
 
 	move $s3,$v0
+	move $s4,$v1
 
 	beq $v0,$v1,true
 
@@ -52,6 +54,14 @@ true:
 	j exit
 
 exit:
+	la $a0,answer
+	li $v0,4
+	syscall
+
+	move $a0,$s4
+	li $v0,1
+	syscall
+
 	li $v0,10
 	syscall
 
