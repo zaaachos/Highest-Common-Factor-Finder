@@ -1,7 +1,7 @@
 	.data
 		readA: .asciiz "Give me the first Integer: "
 		readB: .asciiz "Give me the second Integer: "
-		MKD: .asciiz "Who you think is the highest common factor of these 2 Integers?\n> "
+		HCF: .asciiz "Who you think is the highest common factor of these 2 Integers?\n> "
 		correct: .asciiz "Congratulations"
 		false: .asciiz "False. Try Again!"
 		answer: .asciiz "\nThe HCF is: "
@@ -29,7 +29,7 @@ main:
 
 	jal find			#jump to Highest Common Factor function
 
-	la $a0,MKD
+	la $a0,HCF
 	li $v0,4
 	syscall
 
