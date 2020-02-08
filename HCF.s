@@ -1,6 +1,6 @@
 	.data
-		diabasea: .asciiz "Give me the first Integer: "
-		diabaseb: .asciiz "Give me the second Integer: "
+		readA: .asciiz "Give me the first Integer: "
+		readB: .asciiz "Give me the second Integer: "
 		MKD: .asciiz "Who you think is the highest common factor of these 2 Integers?\n> "
 		correct: .asciiz "Congratulations"
 		false: .asciiz "False. Try Again!"
@@ -9,52 +9,52 @@
 	.text
 	.globl main
 main:
-	la $a0,diabasea
+	la $a0,readA			# read first
 	li $v0,4
 	syscall
 
 	li $v0,5
 	syscall
 
-	move $s0,$v0
+	move $s0,$v0			#save the first
 
-	la $a0,diabaseb
+	la $a0,readB			# read second
 	li $v0,4
 	syscall
 
 	li $v0,5
 	syscall
 
-	move $s1,$v0
+	move $s1,$v0			#save the second
 
-	jal find
+	jal find			#jump to Highest Common Factor function
 
 	la $a0,MKD
 	li $v0,4
 	syscall
 
-	li $v0,5
+	li $v0,5			# the user gives his answer
 	syscall
 
-	move $s3,$v0
+	move $s3,$v0			#save the result and the answer we give
 	move $s4,$v1
 
-	beq $v0,$v1,true
+	beq $v0,$v1,true		# if the answer is the same as the result, go to true.
 
-	la $a0,false
-	li $v0,4
+	la $a0,false			# else false
+	li $v0,4			# print "False. Try again!"
 	syscall
 	j exit
 
 
 true:
-	la $a0,correct
+	la $a0,correct			# print "Congratulations."
 	li $v0,4
 	syscall
 	j exit
 
-exit:
-	la $a0,answer
+exit:					# exit
+	la $a0,answer			#print the HCF
 	li $v0,4
 	syscall
 
@@ -62,18 +62,18 @@ exit:
 	li $v0,1
 	syscall
 
-	li $v0,10
+	li $v0,10			#end program
 	syscall
 
-find:
-	rem $t0,$s0,$s1
+find:					#find function
+	rem $t0,$s0,$s1			# y = a%b ( the Highest Common Factor )
 	loop:
-		beq $t0,0,ok
-		addi $s0,$s1,0
-		addi $s1,$t0,0
-		rem $t0,$s0,$s1
-		j loop
+		beq $t0,0,ok		# while y != 0
+		addi $s0,$s1,0		# a = b
+		addi $s1,$t0,0		# b = y
+		rem $t0,$s0,$s1		# y = a%b
+		j loop			# next loop
 
 ok:
-	addi $v1,$s1,0
+	addi $v1,$s1,0			# return the result y ( y = highest common factor )
 	jr $ra
